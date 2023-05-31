@@ -27,7 +27,7 @@ import java.io.*;
  * Output Format:
  * Print for each pair (A,B) in the input one integer representing the GCD of A and B.
  */
-/
+
 
 public class AdvancedGCD {
 
