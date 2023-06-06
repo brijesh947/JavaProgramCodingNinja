@@ -6,17 +6,17 @@ public class EulerTotientFunction {
 
     private static int MAX = 1000001;
 
-    private static long[] getTotient(){
+    private static long[] getTotient() {
         long[] phi = new long[MAX];
-        for(long i=0;i<MAX;i++){
+        for (long i = 0; i < MAX; i++) {
             phi[(int) i] = i;
         }
 
-        for(long i=2;i<MAX;i++){
-            if(phi[(int) i]==i){
-                phi[(int) i] = i-1;
-                for(long j = 2*i;j<MAX;j+=i){
-                    phi[(int) j] =((phi[(int) j]*(i-1))/i);
+        for (long i = 2; i < MAX; i++) {
+            if (phi[(int) i] == i) {
+                phi[(int) i] = i - 1;
+                for (long j = 2 * i; j < MAX; j += i) {
+                    phi[(int) j] = ((phi[(int) j] * (i - 1)) / i);
                 }
             }
         }
@@ -28,7 +28,7 @@ public class EulerTotientFunction {
         int t = Integer.parseInt(reader.readLine().trim());
         long[] ans = getTotient();
 
-        while(t-->0){
+        while (t-- > 0) {
             int n = Integer.parseInt(reader.readLine().trim());
             System.out.println(ans[n]);
         }
