@@ -36,8 +36,8 @@ public class NinjaCubeFreeNumbers {
         }
         for (int i : prime) {
             int j = i * i * i;
-            for (; j < MAX; j += j) {
-                arr[j] = -1;
+            for (int k=j; k < MAX; k += j) {
+                arr[k] = -1;
             }
         }
         int count = 0;
