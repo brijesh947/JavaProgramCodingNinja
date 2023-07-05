@@ -1,3 +1,5 @@
+package dynamicprogramming;
+
 import java.util.Scanner;
 
 /*

@@ -33,11 +33,11 @@ public class NinjaTotient {
     private static long getTotientOfNumber(long n) {
         long ans = n;
         /*
-        * You can not use space to determine the totient value as Range of N is 10^9, You can't create array
-        * of too large memory.
-        * since Totient(n) = (p1^a)*(p2^b)*(p3^c).....(P^k) where p1,p2,p3 are prime numbers
-        * we are starting from 2 which is prime ,so we will divide n till it is divisible by 2 now n = (2^k)*c
-        * similarly we will continue to do for the rest (n=c) of the number   */
+         * You can not use space to determine the totient value as Range of N is 10^9, You can't create array
+         * of too large memory.
+         * since Totient(n) = (p1^a)*(p2^b)*(p3^c).....(P^k) where p1,p2,p3 are prime numbers
+         * we are starting from 2 which is prime ,so we will divide n till it is divisible by 2 now n = (2^k)*c
+         * similarly we will continue to do for the rest (n=c) of the number   */
 
         for (long i = 2; i * i <= n; i++) {
             if (n % i == 0) {
@@ -47,9 +47,9 @@ public class NinjaTotient {
             }
         }
         /*
-        * n>1 means it is the last prime number which is also a factor of Given (N) that's why  we are adding it to answer*/
-        if(n>1){
-           ans= (ans*(n-1))/n;
+         * n>1 means it is the last prime number which is also a factor of Given (N) that's why  we are adding it to answer*/
+        if (n > 1) {
+            ans = (ans * (n - 1)) / n;
         }
         return ans;
     }
