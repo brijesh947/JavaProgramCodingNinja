@@ -1,3 +1,5 @@
+package NumberTheory;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
