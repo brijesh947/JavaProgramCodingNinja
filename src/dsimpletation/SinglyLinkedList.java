@@ -72,10 +72,29 @@ public class SinglyLinkedList {
     }
 
     public void deleteNode(int value) {
+        if (!isNodePresentInList(value))
+            return;
+        size--;
+        Node t = head;
+        Node prev = null;
+        while (t != null && t.value != value) {
+            prev = t;
+            t = t.next;
+        }
+        if (prev == null)
+            head = head.next;
+        else
+            prev.next = t == null ? null : t.next;
 
     }
 
     public boolean isNodePresentInList(int value) {
+        Node t = head;
+        while (t != null) {
+            if (t.value == value)
+                return true;
+            t = t.next;
+        }
         return false;
     }
 
@@ -89,15 +108,48 @@ public class SinglyLinkedList {
     }
 
     public static void main(String[] args) {
-          SinglyLinkedList linkedList = new SinglyLinkedList();
-          linkedList.insertNode(1,0);
-          linkedList.insertNode(2,1);
-          linkedList.insertNode(3,1);
-          linkedList.insertNode(4,3);
-          linkedList.insertNode(5,0);
-          linkedList.insertNode(6,1);
-          linkedList.insertNode(7,4);
-          linkedList.printLinkedList();
+        SinglyLinkedList linkedList = new SinglyLinkedList();
+        linkedList.insertNode(1, 0);
+        linkedList.printLinkedList();
+        linkedList.insertNode(2, 1);
+        linkedList.printLinkedList();
+        linkedList.insertNode(3, 1);
+        linkedList.printLinkedList();
+        linkedList.insertNode(4, 3);
+        linkedList.printLinkedList();
+        linkedList.insertNode(5, 0);
+        linkedList.printLinkedList();
+        linkedList.insertNode(6, 1);
+        linkedList.printLinkedList();
+        linkedList.insertNode(7, 4);
+        linkedList.printLinkedList();
+        linkedList.deleteNode(4);
+        linkedList.printLinkedList();
+        linkedList.deleteNode(5);
+        linkedList.printLinkedList();
+        linkedList.deleteNode(7);
+        linkedList.printLinkedList();
+        linkedList.deleteNode(1);
+        linkedList.printLinkedList();
+        linkedList.insertNode(5, 0);
+        linkedList.printLinkedList();
+        linkedList.deleteNode(7);
+        linkedList.printLinkedList();
+        linkedList.insertNode(11, 4);
+        linkedList.printLinkedList();
+        linkedList.deleteNode(11);
+        linkedList.printLinkedList();
+        linkedList.deleteNode(6);
+        linkedList.printLinkedList();
+        linkedList.deleteNode(2);
+        linkedList.printLinkedList();
+        linkedList.deleteNode(3);
+        linkedList.printLinkedList();
+        linkedList.deleteNode(5);
+        linkedList.printLinkedList();
+        linkedList.insertNode(6, 1);
+        linkedList.printLinkedList();
+
     }
 
 
