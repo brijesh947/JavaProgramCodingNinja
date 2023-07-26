@@ -24,8 +24,8 @@ public class XorTree {
             int q = Integer.parseInt(num[1]);
 
             for (int i = 0; i < MAX; i++) {
-                if(tree[i]!=null)
-                  tree[i].clear();
+                if (tree[i] != null)
+                    tree[i].clear();
                 tree[i] = new ArrayList<>();
                 subTreeXor[i] = 0;
             }
@@ -42,7 +42,7 @@ public class XorTree {
             String[] query = reader.readLine().split(" ");
             for (int i = 0; i < q; i++) {
                 int q1 = Integer.parseInt(query[i]);
-                System.out.print(subTreeXor[q1]+ " ");
+                System.out.print(subTreeXor[q1] + " ");
             }
             System.out.print("\n");
 
