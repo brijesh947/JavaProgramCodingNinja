@@ -1,0 +1,53 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5;
+
+vector<int> adj[N+1];
+int in[N+1] , low[N+1];
+int timer;
+bool vis[N+1];
+
+void dfs(int node , int par){
+	in[node] = low[node] = timer++;
+	vis[node] = true;
+
+	for(int v : adj[node]){
+		if(v == par) continue;
+
+		//forward edge node->v
+		if(vis[v] == false){
+			dfs(v , node);
+			if(low[v] > in[node]) cout<<"Edge "<<node<<" -> "<<v<<" is a bridge\n";
+			low[node] = min(low[node] , low[v]);
+		}
+		//backEdge
+		else{
+			low[node] = min(low[node] , in[v]);
+		}
+	}
+
+}
+
+int main(){
+
+	 #ifndef ONLINE_JUDGE
+	 freopen("input.txt" , "r" , stdin);
+	 freopen("output.txt" , "w" , stdout);
+	 #endif
+
+	 int n , m;
+	 int a , b;
+
+	 cin>>n>>m;
+
+	 for(int i=1;i<=m;i++){
+	 	cin>>a>>b;
+	 	adj[a].push_back(b);
+	 	adj[b].push_back(a);
+	 }
+
+	 dfs(1 , -1);
+
+
+}

@@ -1,0 +1,71 @@
+#include<bits/stdc++.h>
+#define int long long
+
+using namespace std;
+
+int dp[11][2][1000];
+
+vector<int> digits;
+
+int F(int m, int tight, int sum_till_now){
+	if(m == 0) return sum_till_now;
+	else if(dp[m][tight][sum_till_now] > -1) return dp[m][tight][sum_till_now];
+
+	dp[m][tight][sum_till_now] = 0;
+	if(tight == 0){
+		for(int i=0; i<10; i++){
+			dp[m][tight][sum_till_now] += F(m-1, 0, sum_till_now + i);
+		}
+	} else{
+		for(int i=0; i<digits[m-1]; i++)
+			dp[m][tight][sum_till_now] += F(m-1, 0, sum_till_now + i);
+
+		dp[m][tight][sum_till_now] += F(m-1, 1, sum_till_now + digits[m-1]);
+	}
+
+	return dp[m][tight][sum_till_now];
+		
+}
+
+
+int f(int n){
+	digits.clear();
+
+	for(int i=0; i<11; i++){
+		for(int j=0; j<2; j++){
+			for(int k=0; k<1000; k++){
+				dp[i][j][k] = -1;
+			}
+		}
+	}
+
+	while(n > 0){
+		digits.push_back(n % 10);
+		n /= 10;
+	}
+
+	return F(digits.size(), 1, 0);
+
+}
+
+signed main(){
+	freopen("input.txt", "r", stdin);
+	freopen("out.txt", "w", stdout);
+
+	while(true){
+		int a, b;
+		cin>>a>>b;
+		if(a == -1) break;
+
+		if(a == 0) cout<<f(b)<<"\n";
+
+		else{
+			int ans = f(b);
+			ans -= f(a-1);
+
+			cout<<ans<<"\n";
+		}
+
+	}
+	return 0;
+}

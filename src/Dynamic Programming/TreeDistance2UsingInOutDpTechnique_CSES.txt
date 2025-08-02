@@ -1,0 +1,73 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+const int N = (int)(2e5+5);
+
+#define int long long
+
+vector<int> g[N];
+
+int in[N];
+int count_in[N];
+
+void dfs(int s, int p){
+	in[s] = 0;
+	count_in[s] = 0;
+
+	for(int v: g[s]){
+		if(v != p){
+			dfs(v, s);
+			in[s] += in[v] + count_in[v] + 1;
+			count_in[s] += count_in[v] + 1;
+		}
+	}
+}
+
+int out[N];
+int count_out[N];
+
+void dfs_out(int s, int p, int n){
+	int sum = 0;
+	for(int v: g[s]){
+		if(v != p){
+			sum += in[v] + count_in[v] * 2 + 2;
+		}
+	}
+
+	for(int v: g[s]){
+		if(v != p){
+			out[v] = out[s] + count_out[s] + 1 + sum - (in[v] + count_in[v] * 2 + 2);
+			count_out[v] = n - count_in[v] - 1;
+			dfs_out(v, s, n); 
+		}
+	}
+}
+
+
+
+signed main(){
+	// freopen("input.txt", "r", stdin);
+	// freopen("out.txt", "w", stdout);
+
+	int n;
+	cin>>n;
+
+	for(int i=0; i<n-1; i++){
+		int u, v;
+		cin>>u>>v;
+		g[u].push_back(v);
+		g[v].push_back(u);
+	}
+
+	dfs(1, 0);
+
+	dfs_out(1, 0, n);
+
+	for(int i=1; i<=n; i++){
+		cout<<in[i] + out[i]<<" ";
+	}
+
+
+	return 0;
+}

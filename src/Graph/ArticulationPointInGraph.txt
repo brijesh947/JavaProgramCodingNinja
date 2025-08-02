@@ -1,0 +1,52 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+const int N = 1e5;
+vector<int> adj[N+1];
+bool isArticulationPoint[N+1];
+bool vis[N+1];
+int in[N+1] , low[N+1];
+int timer;
+
+void dfs(int node , int par){
+	vis[node] = true;
+	in[node] = low[node] = timer++;
+	int child = 0;
+
+	for(int v : adj[node]){
+		if(v == par) continue;
+
+		if(vis[v]){
+			low[node] = min(low[node] , in[v]);
+		}
+		else{
+			dfs(v , node) , child++;
+			if(par != -1 && low[v] >= in[node]) isArticulationPoint[node] = true;
+			low[node] = min(low[node] , low[v]);
+		}
+	}
+
+	if(par == -1 && child > 1) isArticulationPoint[node] = true;
+}
+
+int main(){
+	#ifndef ONLINE_JUDGE
+		freopen("input.txt" , "r" , stdin);
+		freopen("output.txt" , "w" , stdout);
+	#endif
+
+	int n , m;
+	int a , b;
+
+	cin>>n>>m;
+	for(int i=1;i<=m;i++){
+		cin>>a>>b;
+		adj[a].push_back(b);
+		adj[b].push_back(a);
+	}
+
+	dfs(1 , -1);
+
+	for(int i=1;i<=n;i++)
+		if(isArticulationPoint[i]) cout<<"Node "<<i<<" is articulation point\n";
+}

@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+const int N = (int)(1e5+5);
+
+vector<int>g[N];
+int costs[N];
+
+long long dp1[N], dp2[N];
+
+void dfs(int s, int p){
+	dp1[s] = costs[s];
+	dp2[s] = 0;
+
+	for(int v: g[s]){
+		if(v != p){
+			dfs(v, s);
+			dp1[s] += 1ll * dp2[v];
+			dp2[s] += 1ll * max(dp1[v], dp2[v]);
+		}
+	}
+}
+
+int main(){
+	freopen("input.txt", "r", stdin);
+	freopen("out.txt", "w", stdout);
+
+	int t;
+	cin>>t;
+	while(t--){
+		int n;
+		cin>>n;
+
+		for(int i=0; i<=n; i++){
+			g[i].clear();
+			costs[i] = 0;
+			dp1[i] = dp2[i] = 0;
+		}
+
+		for(int i=1; i<=n; i++){
+			cin>>costs[i];
+		}
+
+		for(int i=0; i<n-1; i++){
+			int u, v;
+			cin>>u>>v;
+			g[u].push_back(v);
+			g[v].push_back(u);
+		}
+
+		dfs(1, 0);
+
+		cout<<max(dp1[1], dp2[1])<<"\n";
+	}
+
+	return 0;
+}
